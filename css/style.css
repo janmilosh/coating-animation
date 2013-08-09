@@ -1,0 +1,24 @@
+body {
+	background: #f8f8f8;
+	margin: 0;
+}
+p {
+	font-family: helvetica, sans-serif;
+	font-size: 18px;
+	color: #333;
+	display: block;
+	-webkit-margin-before: 0px;
+	-webkit-margin-after: 0px;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+}
+/*
+.timer-text {
+	font-family: helvetica, sans-serif;
+	font-size: 40px;
+	fill: #eee;
+}
+.timer {
+	text-align: center;
+	font-size: 40px;
+}*/
