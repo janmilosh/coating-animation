@@ -22,8 +22,9 @@ var conveyorSpeed = 1.4;
 var firstCoatTime = 12;
 var coatTime = 4;
 var cureTime = 60;
-var cycleTime = .1 * 1000;
-ovenFrame.lineColor = "#555";
+var cycleTime = .2 * 1000;
+var loadPauseCycles = 18;						// The arrays take a few seconds to load, this keeps the first box from
+ovenFrame.lineColor = "#555";																				// suddenly jumping to the paint station
 ovenFrame.circleColor = "#808080";
 ovenFrame.svgBackgroundColor = "#fff";
 ovenFrame.ovenColor = "rgba(40, 40, 40 ,0.3)";
@@ -33,7 +34,7 @@ var firstCoatCount = Math.round(firstCoatTime*60/secondsPerIncrement);
 var coatCount = Math.round(coatTime*60/secondsPerIncrement);
 var cureCount = Math.round(cureTime*60/secondsPerIncrement);
 ovenFrame.xShift = 0.75 * ovenFrame.ovenWidth;
-ovenFrame.yShift = 0.75 * ovenFrame.ovenHeight;
+ovenFrame.yShift = ovenFrame.ovenHeight;
 ovenFrame.totalWidth = (ovenFrame.numberOfOvens + 1) * ovenFrame.ovenWidth;
 ovenFrame.totalHeight = ovenFrame.ovenHeight * 3;
 ovenFrame.SVGWidth = ovenFrame.totalWidth + ovenFrame.xShift * 2;
@@ -103,11 +104,11 @@ for (i = 0; i <positionIndex.length; i++) {
 		.attr("cy", positionIndex[i][1])
 		.attr("r", 4)
 		.style("fill", ovenFrame.circleColor);
-	var labels = animationSVG.append("svg:text")
-		.text(i)
-		.attr("x", positionIndex[i][0] + 6)
-		.attr("y", positionIndex[i][1] + 18)
-		.style("fill", ovenFrame.circleColor);
+	//var labels = animationSVG.append("svg:text")
+	//	.text(i)
+	//	.attr("x", positionIndex[i][0] + 6)
+	//	.attr("y", positionIndex[i][1] + 18)
+	//	.style("fill", ovenFrame.circleColor);
 }
 //
 //---------------------------------------------------
@@ -143,48 +144,88 @@ for (i = 0; i < numberOfBoxes; i++) {						//create array of boxes
 }
 //
 //---------------------------------------------------
-//             Add timer/counter to svg
+//        Add timer/counter and labels to svg
 //---------------------------------------------------
 //
 var timer = animationSVG.append("svg:text")	
-		.text("Minutes:")
-		.attr("x",ovenFrame.xShift)
-		.attr("y",ovenFrame.yShift + ovenFrame.totalHeight)
-	  	.attr("font-size", "32px")
-	  	.attr("font-family", "Helvetica")
-	  	.attr("fill", ovenFrame.lineColor);
-
-var timerText = animationSVG.append("text").attr("class", "timer-text");
+	.text("Minutes:")
+	.attr("x",ovenFrame.xShift + ovenFrame.totalWidth - 320)
+	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight)
+	.attr("font-size", "32px")
+	.attr("font-family", "Helvetica")
+	.attr("fill", ovenFrame.lineColor);
+var timerText = animationSVG.append("text")
+	.attr("class", "timer-text")
+	.attr("x", ovenFrame.xShift + ovenFrame.totalWidth - 185)
+	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight)
+	.attr("font-size", "32px")
+  .attr("font-family", "Helvetica")
+  .attr("fill", ovenFrame.lineColor);
+var ovenText = animationSVG.append("svg:text")	
+	.text("Drying/curing ovens")
+	.attr("x",ovenFrame.xShift + ovenFrame.totalWidth/2 - 88)
+	.attr("y",ovenFrame.yShift - ovenFrame.ovenHeight/1.45)
+	.attr("font-size", "20px")
+	.attr("font-family", "Helvetica")
+	.attr("fill", ovenFrame.lineColor);
+var ovenText = animationSVG.append("svg:text")	
+	.text("Outfeed stacker")
+	.attr("x",ovenFrame.xShift - 50)
+	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight - 25)
+	.attr("font-size", "20px")
+	.attr("font-family", "Helvetica")
+	.attr("fill", ovenFrame.lineColor);
+var ovenText = animationSVG.append("svg:text")	
+	.text("Infeed de-stacker")
+	.attr("x",ovenFrame.xShift + ovenFrame.totalWidth - 100)
+	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight - 25)
+	.attr("font-size", "20px")
+	.attr("font-family", "Helvetica")
+	.attr("fill", ovenFrame.lineColor);
+var ovenText = animationSVG.append("svg:text")	
+	.text("Coating-1")
+	.attr("x",ovenFrame.xShift +  6 * ovenFrame.ovenWidth - 42)
+	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight + 60)
+	.attr("font-size", "20px")
+	.attr("font-family", "Helvetica")
+	.attr("fill", ovenFrame.lineColor);
+var ovenText = animationSVG.append("svg:text")	
+	.text("Coating-2")
+	.attr("x",ovenFrame.xShift + 4 * ovenFrame.ovenWidth - 42)
+	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight + 60)
+	.attr("font-size", "20px")
+	.attr("font-family", "Helvetica")
+	.attr("fill", ovenFrame.lineColor);
 //
 //---------------------------------------------------
 //                 Calculate paths
 //---------------------------------------------------
 //
-box[0].endPauseCycles = 36;					//need to wait at beginning and end for other boxes to cycle
-box[1].endPauseCycles = 32;					//these values are for differences in travel time for 3 cycles
-box[2].endPauseCycles = 28;
-box[3].endPauseCycles = 24;
-box[4].endPauseCycles = 20;
-box[5].endPauseCycles = 16;
-box[6].endPauseCycles = 12;
-box[7].endPauseCycles = 8;
-box[8].endPauseCycles = 4;
-box[9].endPauseCycles = 0;
-box[0].beginPauseCycles = 0;					//need to wait at beginning and end for other boxes to cycle
-box[1].beginPauseCycles = 0;					
-box[2].beginPauseCycles = 3;
-box[3].beginPauseCycles = 2;
-box[4].beginPauseCycles = 8;
-box[5].beginPauseCycles = 4;
-box[6].beginPauseCycles = 15;
-box[7].beginPauseCycles = 6;
-box[8].beginPauseCycles = 24;
-box[9].beginPauseCycles = 9;
-for (i = 0; i < numberOfBoxes; i++) {					//calculate number of cycles to add at begin and end								
-	box[i].beginPauseCycles += firstCoatCount * i/2;		//for each box
+box[0].endPauseCycles = 48;					//need to wait at end for other boxes to cycle
+box[1].endPauseCycles = 28;					//these values are for differences in travel time for 3 cycles
+box[2].endPauseCycles = 39;
+box[3].endPauseCycles = 30;
+box[4].endPauseCycles = 28;
+box[5].endPauseCycles = 32;
+box[6].endPauseCycles = 15;
+box[7].endPauseCycles = 34;
+box[8].endPauseCycles = 0;
+box[9].endPauseCycles = 30;
+box[0].beginPauseCycles = loadPauseCycles;					//need to wait at beginning for other boxes to cycle
+box[1].beginPauseCycles = loadPauseCycles;					
+box[2].beginPauseCycles = loadPauseCycles + 3;
+box[3].beginPauseCycles = loadPauseCycles + 2;
+box[4].beginPauseCycles = loadPauseCycles + 8;
+box[5].beginPauseCycles = loadPauseCycles + 4;
+box[6].beginPauseCycles = loadPauseCycles + 15;
+box[7].beginPauseCycles = loadPauseCycles + 6;
+box[8].beginPauseCycles = loadPauseCycles + 24;
+box[9].beginPauseCycles = loadPauseCycles + 9;
+for (i = 0; i < numberOfBoxes; i++) {									//calculate number of cycles to add at begin and end for each box					
+	box[i].beginPauseCycles += firstCoatCount * i/2;
 	box[i].endPauseCycles += firstCoatCount * (9 - i)/2;
 }
-for (i = 0; i < numberOfBoxes; i++) {						
+for (i = 0; i < numberOfBoxes; i++) {									// add pause to beginning and end of animation for each box					
 	box[i].beginPause = [];
 	box[i].endPause = [];
 	var beginCycles = box[i].beginPauseCycles;
@@ -206,8 +247,10 @@ box[5].path = box[5].path.concat(box[5].beginPause,enterCoatingLineTwo(),coatOne
 box[6].path = box[6].path.concat(box[6].beginPause,enterCoatingLineOne(),coatOneOne(),toOvenTwoFromOne(), coatOnePlus(), toOvenTwoFromOne(), coatOnePlus(), toOvenTwoFromOne("end"), box[6].endPause);
 box[7].path = box[7].path.concat(box[7].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenSevenFromTwo(), coatOnePlus(), toOvenSevenFromOne(), coatOnePlus(), toOvenSevenFromOne("end"), box[7].endPause);
 box[8].path = box[8].path.concat(box[8].beginPause,enterCoatingLineOne(),coatOneOne(),toOvenOneFromOne(), coatOnePlus(), toOvenOneFromOne(), coatOnePlus(), toOvenOneFromOne("end"), box[8].endPause);
-box[9].path = box[9].path.concat(box[9].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenSixFromTwo(), coatOnePlus(), toOvenSixFromOne(),17,17,17, coatOnePlus(), toOvenSixFromOne("end"), box[9].endPause);
-
+box[9].path = box[9].path.concat(box[9].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenSixFromTwo(), coatOnePlus(), toOvenSixFromOne("pause"), coatOnePlus(), toOvenSixFromOne("end"), box[9].endPause);
+for (i = 0; i < numberOfBoxes; i++) {
+	console.log(i + " = " + box[i].path.length + "  ")
+}
 function enterCoatingLineOne() {
 	var enterLine = [0,1,4,7,10,13];
 	return enterLine;
@@ -321,6 +364,8 @@ function toOvenSixFromOne(end) {
 	}
 	if (end === "end") {
 		ovenSixReturn = [17,16,19,22,25,28,33];
+	} else if (end === "pause") {
+		ovenSixReturn = [17,16,16,16,16,13];
 	} else {
 		ovenSixReturn = [17,16,13];
 	}
@@ -372,9 +417,9 @@ function toOvenEightFromOne(end) {
 		goToOvenEight.push(24);
 	}
 	if (end === "end") {
-		ovenEightReturn = [20,19,22,25,28,33];
+		ovenEightReturn = [23,22,25,28,33];
 	} else {
-		ovenEightReturn = [20,19,16,13];
+		ovenEightReturn = [23,22,19,16,13];
 	}
 	goToOvenEight = goToOvenEight.concat(ovenEightReturn);
 	return goToOvenEight;
@@ -467,16 +512,13 @@ function animation() {
 					.attr("x", positionIndex[box[k].path[j]][0] - box[k].textShiftX)
 					.attr("y", positionIndex[box[k].path[j]][1] + 12);
 			}
+			var normalizedTime = j - loadPauseCycles;							//This is added to sync the timer so start time is zero
+			if (normalizedTime < 0) normalizedTime = 0;						//because a delay is added for loading of the arrays
 			animationSVG.selectAll(".timer-text")	
 				.transition()
 				.delay(j * cycleTime)
 				.duration(cycleTime)
-				.text((Math.round((j * secondsPerIncrement/60) * 10) / 10).toFixed(1))
-				.attr("x", ovenFrame.xShift + 135)
-				.attr("y", ovenFrame.yShift + ovenFrame.totalHeight)
-				.attr("font-size", "32px")
-			  	.attr("font-family", "Helvetica")
-			  	.attr("fill", ovenFrame.lineColor);
+				.text((Math.round(((normalizedTime)* secondsPerIncrement/60) * 10) / 10).toFixed(1));
 		}
 	
 	},500);
