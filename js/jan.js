@@ -148,7 +148,7 @@ for (i = 0; i < numberOfBoxes; i++) {						//create array of boxes
 //---------------------------------------------------
 //
 var timer = animationSVG.append("svg:text")	
-	.text("Minutes:")
+	.text("Time:")
 	.attr("x",ovenFrame.xShift + ovenFrame.totalWidth - 320)
 	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight)
 	.attr("font-size", "32px")
@@ -156,11 +156,18 @@ var timer = animationSVG.append("svg:text")
 	.attr("fill", ovenFrame.lineColor);
 var timerText = animationSVG.append("text")
 	.attr("class", "timer-text")
-	.attr("x", ovenFrame.xShift + ovenFrame.totalWidth - 185)
+	.attr("x", ovenFrame.xShift + ovenFrame.totalWidth - 220)
 	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight)
 	.attr("font-size", "32px")
   .attr("font-family", "Helvetica")
   .attr("fill", ovenFrame.lineColor);
+var timer = animationSVG.append("svg:text")	
+	.text("minutes")
+	.attr("x",ovenFrame.xShift + ovenFrame.totalWidth - 130)
+	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight)
+	.attr("font-size", "32px")
+	.attr("font-family", "Helvetica")
+	.attr("fill", ovenFrame.lineColor);
 var ovenText = animationSVG.append("svg:text")	
 	.text("Drying/curing ovens")
 	.attr("x",ovenFrame.xShift + ovenFrame.totalWidth/2 - 88)
@@ -196,21 +203,49 @@ var ovenText = animationSVG.append("svg:text")
 	.attr("font-size", "20px")
 	.attr("font-family", "Helvetica")
 	.attr("fill", ovenFrame.lineColor);
+	var ovenText = animationSVG.append("svg:text")	
+	.text("First coat:  " + firstCoatTime + " minutes")
+	.attr("x",ovenFrame.xShift)
+	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight)
+	.attr("font-size", "18px")
+	.attr("font-family", "Helvetica")
+	.attr("fill", ovenFrame.lineColor);
+	var ovenText = animationSVG.append("svg:text")	
+	.text("Subsequent coats:  " + coatTime + " minutes")
+	.attr("x",ovenFrame.xShift)
+	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight + 20)
+	.attr("font-size", "18px")
+	.attr("font-family", "Helvetica")
+	.attr("fill", ovenFrame.lineColor);
+	var ovenText = animationSVG.append("svg:text")	
+	.text("Cure:  " + cureTime + " minutes")
+	.attr("x",ovenFrame.xShift)
+	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight + 40)
+	.attr("font-size", "18px")
+	.attr("font-family", "Helvetica")
+	.attr("fill", ovenFrame.lineColor);
+	var ovenText = animationSVG.append("svg:text")	
+	.text("Three coating cycles")
+	.attr("x",ovenFrame.xShift)
+	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight + 60)
+	.attr("font-size", "18px")
+	.attr("font-family", "Helvetica")
+	.attr("fill", ovenFrame.lineColor);
 //
 //---------------------------------------------------
 //                 Calculate paths
 //---------------------------------------------------
 //
-box[0].endPauseCycles = 48;					//need to wait at end for other boxes to cycle
-box[1].endPauseCycles = 28;					//these values are for differences in travel time for 3 cycles
-box[2].endPauseCycles = 39;
-box[3].endPauseCycles = 30;
-box[4].endPauseCycles = 28;
-box[5].endPauseCycles = 32;
-box[6].endPauseCycles = 15;
-box[7].endPauseCycles = 34;
-box[8].endPauseCycles = 0;
-box[9].endPauseCycles = 30;
+box[0].endPauseCycles = 18;					//need to wait at end for other boxes to cycle
+box[1].endPauseCycles = -2;					//these values are for differences in travel time for 3 cycles
+box[2].endPauseCycles = 9;
+box[3].endPauseCycles = 0;
+box[4].endPauseCycles = -2;
+box[5].endPauseCycles = 2;
+box[6].endPauseCycles = -15;
+box[7].endPauseCycles = 4;
+box[8].endPauseCycles = -30;
+box[9].endPauseCycles = 0;
 box[0].beginPauseCycles = loadPauseCycles;					//need to wait at beginning for other boxes to cycle
 box[1].beginPauseCycles = loadPauseCycles;					
 box[2].beginPauseCycles = loadPauseCycles + 3;
@@ -249,7 +284,7 @@ box[7].path = box[7].path.concat(box[7].beginPause,enterCoatingLineTwo(),coatOne
 box[8].path = box[8].path.concat(box[8].beginPause,enterCoatingLineOne(),coatOneOne(),toOvenOneFromOne(), coatOnePlus(), toOvenOneFromOne(), coatOnePlus(), toOvenOneFromOne("end"), box[8].endPause);
 box[9].path = box[9].path.concat(box[9].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenSixFromTwo(), coatOnePlus(), toOvenSixFromOne("pause"), coatOnePlus(), toOvenSixFromOne("end"), box[9].endPause);
 for (i = 0; i < numberOfBoxes; i++) {
-	console.log(i + " = " + box[i].path.length + "  ")
+//console.log(i + " = " + box[i].path.length + "  ")
 }
 function enterCoatingLineOne() {
 	var enterLine = [0,1,4,7,10,13];
@@ -494,7 +529,6 @@ function toOvenTenFromTwo() {
 //---------------------------------------------------
 //
 function animation() {
-	setTimeout(function(){
 		for (var j = 0; j < box[0].path.length; j++) {
 			for (var k = 0; k < numberOfBoxes; k++) {
 				animationSVG.selectAll("." + box[k].boxClass)	
@@ -520,8 +554,6 @@ function animation() {
 				.duration(cycleTime)
 				.text((Math.round(((normalizedTime)* secondsPerIncrement/60) * 10) / 10).toFixed(1));
 		}
-	
-	},500);
 }
 animation();
 //
