@@ -35,7 +35,7 @@ var cureCount = Math.round(cureTime*60/secondsPerIncrement);
 ovenFrame.xShift = 0.75 * ovenFrame.ovenWidth;
 ovenFrame.yShift = 0.75 * ovenFrame.ovenHeight;
 ovenFrame.totalWidth = (ovenFrame.numberOfOvens + 1) * ovenFrame.ovenWidth;
-ovenFrame.totalHeight = ovenFrame.ovenHeight * 4;
+ovenFrame.totalHeight = ovenFrame.ovenHeight * 3;
 ovenFrame.SVGWidth = ovenFrame.totalWidth + ovenFrame.xShift * 2;
 ovenFrame.SVGHeight = ovenFrame.totalHeight + ovenFrame.yShift * 2;
 var positionIndex = [];
@@ -66,36 +66,30 @@ var animationSVG = d3.select("#container")
 //             Draw tracks inside of svg
 //---------------------------------------------------
 //
-ovenFrame.topLine = animationSVG.append("svg:line")	
-	.attr("x1",ovenFrame.xShift)
-	.attr("y1",ovenFrame.yShift)
-	.attr("x2",ovenFrame.xShift + ovenFrame.totalWidth)
-	.attr("y2",ovenFrame.yShift)
-  	.attr("stroke", ovenFrame.lineColor)
-  	.attr("stroke-width", "2");
+
 ovenFrame.bottomLine = animationSVG.append("svg:line")	
-	.attr("x1",ovenFrame.xShift + ovenFrame.ovenWidth)
-	.attr("y1",ovenFrame.yShift + ovenFrame.totalHeight - ovenFrame.ovenHeight)
-	.attr("x2",ovenFrame.xShift + ovenFrame.ovenWidth * (1 + ovenFrame.numberOfOvens))
-	.attr("y2",ovenFrame.yShift + ovenFrame.totalHeight - ovenFrame.ovenHeight)
+	.attr("x1",ovenFrame.xShift)
+	.attr("y1",ovenFrame.yShift + ovenFrame.ovenHeight * 2)
+	.attr("x2",ovenFrame.xShift + ovenFrame.totalWidth)
+	.attr("y2",ovenFrame.yShift + ovenFrame.ovenHeight * 2)
   	.attr("stroke", ovenFrame.lineColor)
   	.attr("stroke-width", "2");
 ovenFrame.ovenLines = [];
-for (i = 0; i <= ovenFrame.numberOfOvens; i++) {	
+for (i = 0; i < ovenFrame.numberOfOvens; i++) {	
 	ovenFrame.ovenLines[i] = animationSVG.append("svg:line")	
 		.attr("x1",ovenFrame.xShift + (i + 1) * ovenFrame.ovenWidth)
 		.attr("y1",ovenFrame.yShift)
 		.attr("x2",ovenFrame.xShift + (i + 1) * ovenFrame.ovenWidth)
-		.attr("y2",ovenFrame.yShift + ovenFrame.totalHeight - ovenFrame.ovenHeight)
+		.attr("y2",ovenFrame.yShift + ovenFrame.ovenHeight * 2)
 	  	.attr("stroke", ovenFrame.lineColor)
 	  	.attr("stroke-width", "2");
 }
 ovenFrame.coatingLines = [];
-for (i = 0; i < 5; i++) {	
+for (i = 0; i < 2; i++) {	
 	ovenFrame.coatingLines[i] = animationSVG.append("svg:line")	
-		.attr("x1",ovenFrame.xShift - (2*i) * ovenFrame.ovenWidth + ovenFrame.totalWidth)
+		.attr("x1",ovenFrame.xShift + (4 + 2 * i) * ovenFrame.ovenWidth)
 		.attr("y1",ovenFrame.yShift + ovenFrame.totalHeight - ovenFrame.ovenHeight)
-		.attr("x2",ovenFrame.xShift - (2*i) * ovenFrame.ovenWidth + ovenFrame.totalWidth)
+		.attr("x2",ovenFrame.xShift + (4 + 2 * i) * ovenFrame.ovenWidth)
 		.attr("y2",ovenFrame.yShift + ovenFrame.totalHeight)
 	  	.attr("stroke", ovenFrame.lineColor)
 	  	.attr("stroke-width", "2");
@@ -111,11 +105,11 @@ for (i = 0; i <positionIndex.length; i++) {
 		.attr("cy", positionIndex[i][1])
 		.attr("r", 4)
 		.style("fill", ovenFrame.circleColor);
-	//var labels = animationSVG.append("svg:text")
-	//	.text(i)
-	//	.attr("x", positionIndex[i][0] + 6)
-	//	.attr("y", positionIndex[i][1] + 18)
-	//	.style("fill", ovenFrame.circleColor);
+	var labels = animationSVG.append("svg:text")
+		.text(i)
+		.attr("x", positionIndex[i][0] + 6)
+		.attr("y", positionIndex[i][1] + 18)
+		.style("fill", ovenFrame.circleColor);
 }
 //
 //---------------------------------------------------
@@ -441,8 +435,8 @@ ovenFrame.ovens = [];
 for (i = 0; i < ovenFrame.numberOfOvens; i++) {
 	ovenFrame.ovens[i] = animationSVG.append("svg:rect")			
 	.attr("width", ovenFrame.ovenWidth - 2)
-   	.attr("height", ovenFrame.ovenHeight -2)		
+  .attr("height", ovenFrame.ovenHeight -2)		
 	.attr("x", ovenFrame.xShift + (i + 1) * ovenFrame.ovenWidth - ovenFrame.ovenWidth/2)
-	.attr("y", ovenFrame.yShift + ovenFrame.ovenHeight * 2 - ovenFrame.ovenHeight/2)
+	.attr("y", ovenFrame.yShift - ovenFrame.ovenHeight/2)
 	.attr("fill", ovenFrame.ovenColor);
 }
