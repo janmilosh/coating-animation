@@ -19,16 +19,17 @@ var boxWidth = 12 * 5;
 ovenFrame.ovenWidth = 12 * 7;
 ovenFrame.ovenHeight = 12 * 7;
 var conveyorSpeed = 1.4;
-var firstCoatTime = 5/4;
-var coatTime = 4/4;
-var cureTime = 60/4;
-var cycleTime = .3 * 1000;
+var firstCoatTime = 12;
+var coatTime = 4;
+var cureTime = 60;
+var cycleTime = .01 * 1000;
 ovenFrame.lineColor = "#555";
 ovenFrame.circleColor = "#808080";
 ovenFrame.svgBackgroundColor = "#fff";
 ovenFrame.ovenColor = "rgba(40, 40, 40 ,0.3)";
 //
 var secondsPerIncrement = (ovenFrame.ovenWidth/12)/conveyorSpeed;
+alert(secondsPerIncrement);
 var firstCoatCount = Math.round(firstCoatTime*60/secondsPerIncrement);
 var coatCount = Math.round(coatTime*60/secondsPerIncrement);
 var cureCount = Math.round(cureTime*60/secondsPerIncrement);
@@ -160,13 +161,6 @@ var timerText = animationSVG.append("text").attr("class", "timer-text");
 //                 Calculate paths
 //---------------------------------------------------
 //
-
-for (j = 0; j < numberOfBoxes; j++) {	// All boxes start with first color
-	box[j].layerColor = [];
-	for (i = 0; i < box[0].path.length; i++) {
-		box[j].layerColor.push(color1);
-	}
-}
 box[0].endPauseCycles = 30+26;					//need to wait at beginning and end for other boxes to cycle
 box[1].endPauseCycles = 32+19;					//these values are for differences in travel time for 3 cycles
 box[2].endPauseCycles = 28+14;
@@ -188,10 +182,9 @@ box[7].beginPauseCycles = 17+5;
 box[8].beginPauseCycles = 19+5;
 box[9].beginPauseCycles = 21+5;
 for (i = 0; i < numberOfBoxes; i++) {					//calculate number of cycles to add at begin and end								
-	box[i].beginPauseCycles += firstCoatCount * i;		//for each box
-	box[i].endPauseCycles += firstCoatCount * (9 - i);
+	box[i].beginPauseCycles += firstCoatCount * i/2;		//for each box
+	box[i].endPauseCycles += firstCoatCount * (9 - i)/2;
 }
-box[0].beginPauseCycles = 0;
 for (i = 0; i < numberOfBoxes; i++) {						
 	box[i].beginPause = [];
 	box[i].endPause = [];
@@ -201,23 +194,27 @@ for (i = 0; i < numberOfBoxes; i++) {
 		box[i].beginPause.push(0);
 	}
 	for (j = 0; j < endCycles; j++) {
-		box[i].endPause.push(5);
+		box[i].endPause.push(33);
 	}
 }
 
-box[0].path = box[0].path.concat(box[0].beginPause,enterCoatingLine(),coatOne(),toOvenOne(), coatTwoPlus(), toOvenOne(), coatTwoPlus(), toOvenOne("end"), box[0].endPause);
-box[1].path = box[1].path.concat(box[1].beginPause,enterCoatingLine(),coatOne(),toOvenTwo(), coatTwoPlus(), toOvenTwo(), coatTwoPlus(), toOvenTwo("end"), box[1].endPause);
-box[2].path = box[2].path.concat(box[2].beginPause,enterCoatingLine(),coatOne(),toOvenThree(), coatTwoPlus(), toOvenThree(), coatTwoPlus(), toOvenThree("end"), box[2].endPause);
-box[3].path = box[3].path.concat(box[3].beginPause,enterCoatingLine(),coatOne(),toOvenFour(), coatTwoPlus(), toOvenFour(), coatTwoPlus(), toOvenFour("end"), box[3].endPause);
-box[4].path = box[4].path.concat(box[4].beginPause,enterCoatingLine(),coatOne(),toOvenFive(), coatTwoPlus(), toOvenFive(), coatTwoPlus(), toOvenFive("end"), box[4].endPause);
-box[5].path = box[5].path.concat(box[5].beginPause,enterCoatingLine(),coatOne(),toOvenSix(), coatTwoPlus(), toOvenSix(), coatTwoPlus(), toOvenSix("end"), box[5].endPause);
-box[6].path = box[6].path.concat(box[6].beginPause,enterCoatingLine(),coatOne(),toOvenSeven(), coatTwoPlus(), toOvenSeven(), coatTwoPlus(), toOvenSeven("end"), box[6].endPause);
-box[7].path = box[7].path.concat(box[7].beginPause,enterCoatingLine(),coatOne(),toOvenEight(), coatTwoPlus(), toOvenEight(), coatTwoPlus(), toOvenEight("end"), box[7].endPause);
-box[8].path = box[8].path.concat(box[8].beginPause,enterCoatingLine(),coatOne(),toOvenNine(), coatTwoPlus(), toOvenNine(), coatTwoPlus(), toOvenNine("end"), box[8].endPause);
-box[9].path = box[9].path.concat(box[9].beginPause,enterCoatingLine(),coatOne(),toOvenTen(), coatTwoPlus(), toOvenTen(), coatTwoPlus(), toOvenTen("end"), box[9].endPause);
+box[0].path = box[0].path.concat(box[0].beginPause,enterCoatingLineOne(),coatOne(),toOvenOne(), coatTwoPlus(), toOvenOne(), coatTwoPlus(), toOvenOne("end"), box[0].endPause);
+box[1].path = box[1].path.concat(box[1].beginPause,enterCoatingLineTwo(),coatOne(),toOvenTwo(), coatTwoPlus(), toOvenTwo(), coatTwoPlus(), toOvenTwo("end"), box[1].endPause);
+box[2].path = box[2].path.concat(box[2].beginPause,enterCoatingLineOne(),coatOne(),toOvenThree(), coatTwoPlus(), toOvenThree(), coatTwoPlus(), toOvenThree("end"), box[2].endPause);
+box[3].path = box[3].path.concat(box[3].beginPause,enterCoatingLineTwo(),coatOne(),toOvenFour(), coatTwoPlus(), toOvenFour(), coatTwoPlus(), toOvenFour("end"), box[3].endPause);
+box[4].path = box[4].path.concat(box[4].beginPause,enterCoatingLineOne(),coatOne(),toOvenFive(), coatTwoPlus(), toOvenFive(), coatTwoPlus(), toOvenFive("end"), box[4].endPause);
+box[5].path = box[5].path.concat(box[5].beginPause,enterCoatingLineTwo(),coatOne(),toOvenSix(), coatTwoPlus(), toOvenSix(), coatTwoPlus(), toOvenSix("end"), box[5].endPause);
+box[6].path = box[6].path.concat(box[6].beginPause,enterCoatingLineOne(),coatOne(),toOvenSeven(), coatTwoPlus(), toOvenSeven(), coatTwoPlus(), toOvenSeven("end"), box[6].endPause);
+box[7].path = box[7].path.concat(box[7].beginPause,enterCoatingLineTwo(),coatOne(),toOvenEight(), coatTwoPlus(), toOvenEight(), coatTwoPlus(), toOvenEight("end"), box[7].endPause);
+box[8].path = box[8].path.concat(box[8].beginPause,enterCoatingLineOne(),coatOne(),toOvenNine(), coatTwoPlus(), toOvenNine(), coatTwoPlus(), toOvenNine("end"), box[8].endPause);
+box[9].path = box[9].path.concat(box[9].beginPause,enterCoatingLineTwo(),coatOne(),toOvenTen(), coatTwoPlus(), toOvenTen(), coatTwoPlus(), toOvenTen("end"), box[9].endPause);
 
-function enterCoatingLine() {
-	var enterLine = [0,6,10,14];
+function enterCoatingLineOne() {
+	var enterLine = [0,1,4,7,10,13];
+	return enterLine;
+}
+function enterCoatingLineTwo() {
+	var enterLine = [0,1,4,7,10,13,16,19];
 	return enterLine;
 }
 function coatOne() {
@@ -413,7 +410,7 @@ function animation() {
 				.transition()
 				.delay(j * cycleTime)
 				.duration(cycleTime)
-				.text((Math.round((j * secondsPerIncrement/15) * 10) / 10).toFixed(1))
+				.text((Math.round((j * secondsPerIncrement/60) * 10) / 10).toFixed(1))
 				.attr("x", ovenFrame.xShift + 135)
 				.attr("y", ovenFrame.yShift + ovenFrame.totalHeight)
 				.attr("font-size", "32px")
