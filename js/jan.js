@@ -22,7 +22,7 @@ var conveyorSpeed = 1.4;
 var firstCoatTime = 12;
 var coatTime = 4;
 var cureTime = 60;
-var cycleTime = .2 * 1000;
+var cycleTime = .1 * 1000;
 ovenFrame.lineColor = "#555";
 ovenFrame.circleColor = "#808080";
 ovenFrame.svgBackgroundColor = "#fff";
@@ -160,26 +160,26 @@ var timerText = animationSVG.append("text").attr("class", "timer-text");
 //                 Calculate paths
 //---------------------------------------------------
 //
-box[0].endPauseCycles = 30+26;					//need to wait at beginning and end for other boxes to cycle
-box[1].endPauseCycles = 32+19;					//these values are for differences in travel time for 3 cycles
-box[2].endPauseCycles = 28+14;
-box[3].endPauseCycles = 24+12;
-box[4].endPauseCycles = 20+10;
-box[5].endPauseCycles = 16+8;
-box[6].endPauseCycles = 12+6;
-box[7].endPauseCycles = 8+4;
-box[8].endPauseCycles = 4+2;
+box[0].endPauseCycles = 36;					//need to wait at beginning and end for other boxes to cycle
+box[1].endPauseCycles = 32;					//these values are for differences in travel time for 3 cycles
+box[2].endPauseCycles = 28;
+box[3].endPauseCycles = 24;
+box[4].endPauseCycles = 20;
+box[5].endPauseCycles = 16;
+box[6].endPauseCycles = 12;
+box[7].endPauseCycles = 8;
+box[8].endPauseCycles = 4;
 box[9].endPauseCycles = 0;
 box[0].beginPauseCycles = 0;					//need to wait at beginning and end for other boxes to cycle
 box[1].beginPauseCycles = 0;					
-box[2].beginPauseCycles = 6;
-box[3].beginPauseCycles = 8;
-box[4].beginPauseCycles = 10;
-box[5].beginPauseCycles = 12;
-box[6].beginPauseCycles = 14;
-box[7].beginPauseCycles = 16;
-box[8].beginPauseCycles = 18;
-box[9].beginPauseCycles = 20;
+box[2].beginPauseCycles = 3;
+box[3].beginPauseCycles = 2;
+box[4].beginPauseCycles = 8;
+box[5].beginPauseCycles = 4;
+box[6].beginPauseCycles = 15;
+box[7].beginPauseCycles = 6;
+box[8].beginPauseCycles = 24;
+box[9].beginPauseCycles = 9;
 for (i = 0; i < numberOfBoxes; i++) {					//calculate number of cycles to add at begin and end								
 	box[i].beginPauseCycles += firstCoatCount * i/2;		//for each box
 	box[i].endPauseCycles += firstCoatCount * (9 - i)/2;
@@ -197,16 +197,16 @@ for (i = 0; i < numberOfBoxes; i++) {
 	}
 }
 
-box[0].path = box[0].path.concat(box[0].beginPause,enterCoatingLineOne(),coatOneOne(),toOvenOneFromOne(), coatTwoOnePlus(), toOvenOneFromOne(), coatTwoOnePlus(), toOvenOneFromOne("end"), box[0].endPause);
-box[1].path = box[1].path.concat(box[1].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenTwo(), coatTwoTwoPlus(), toOvenTwo(), coatTwoTwoPlus(), toOvenTwo("end"), box[1].endPause);
-box[2].path = box[2].path.concat(box[2].beginPause,enterCoatingLineOne(),coatOneOne(),toOvenTwoFromOne(), coatTwoOnePlus(), toOvenTwoFromOne(), coatTwoOnePlus(), toOvenTwoFromOne("end"), box[2].endPause);
-box[3].path = box[3].path.concat(box[3].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenFour(), coatTwoTwoPlus(), toOvenFour(), coatTwoTwoPlus(), toOvenFour("end"), box[3].endPause);
-box[4].path = box[4].path.concat(box[4].beginPause,enterCoatingLineOne(),coatOneOne(),toOvenThreeFromOne(), coatTwoOnePlus(), toOvenThreeFromOne(), coatTwoOnePlus(), toOvenThreeFromOne("end"), box[4].endPause);
-box[5].path = box[5].path.concat(box[5].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenSix(), coatTwoTwoPlus(), toOvenSix(), coatTwoTwoPlus(), toOvenSix("end"), box[5].endPause);
-box[6].path = box[6].path.concat(box[6].beginPause,enterCoatingLineOne(),coatOneOne(),toOvenFourFromOne(), coatTwoOnePlus(), toOvenFourFromOne(), coatTwoOnePlus(), toOvenFourFromOne("end"), box[6].endPause);
-box[7].path = box[7].path.concat(box[7].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenEight(), coatTwoTwoPlus(), toOvenEight(), coatTwoTwoPlus(), toOvenEight("end"), box[7].endPause);
-box[8].path = box[8].path.concat(box[8].beginPause,enterCoatingLineOne(),coatOneOne(),toOvenNine(), coatTwoOnePlus(), toOvenNine(), coatTwoOnePlus(), toOvenNine("end"), box[8].endPause);
-box[9].path = box[9].path.concat(box[9].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenFiveFromOne(), coatTwoTwoPlus(), toOvenFiveFromOne(), coatTwoTwoPlus(), toOvenFiveFromOne("end"), box[9].endPause);
+box[0].path = box[0].path.concat(box[0].beginPause,enterCoatingLineOne(),coatOneOne(),toOvenFiveFromOne(), coatOnePlus(), toOvenFiveFromOne(), coatOnePlus(), toOvenFiveFromOne("end"), box[0].endPause);
+box[1].path = box[1].path.concat(box[1].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenTenFromTwo(), coatOnePlus(), toOvenTenFromOne(), coatOnePlus(), toOvenTenFromOne("end"), box[1].endPause);
+box[2].path = box[2].path.concat(box[2].beginPause,enterCoatingLineOne(),coatOneOne(),toOvenFourFromOne(), coatOnePlus(), toOvenFourFromOne(), coatOnePlus(), toOvenFourFromOne("end"), box[2].endPause);
+box[3].path = box[3].path.concat(box[3].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenNineFromTwo(), coatOnePlus(), toOvenNineFromOne(), coatOnePlus(), toOvenNineFromOne("end"), box[3].endPause);
+box[4].path = box[4].path.concat(box[4].beginPause,enterCoatingLineOne(),coatOneOne(),toOvenThreeFromOne(), coatOnePlus(), toOvenThreeFromOne(), coatOnePlus(), toOvenThreeFromOne("end"), box[4].endPause);
+box[5].path = box[5].path.concat(box[5].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenEightFromTwo(), coatOnePlus(), toOvenEightFromOne(), coatOnePlus(), toOvenEightFromOne("end"), box[5].endPause);
+box[6].path = box[6].path.concat(box[6].beginPause,enterCoatingLineOne(),coatOneOne(),toOvenTwoFromOne(), coatOnePlus(), toOvenTwoFromOne(), coatOnePlus(), toOvenTwoFromOne("end"), box[6].endPause);
+box[7].path = box[7].path.concat(box[7].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenSevenFromTwo(), coatOnePlus(), toOvenSevenFromOne(), coatOnePlus(), toOvenSevenFromOne("end"), box[7].endPause);
+box[8].path = box[8].path.concat(box[8].beginPause,enterCoatingLineOne(),coatOneOne(),toOvenOneFromOne(), coatOnePlus(), toOvenOneFromOne(), coatOnePlus(), toOvenOneFromOne("end"), box[8].endPause);
+box[9].path = box[9].path.concat(box[9].beginPause,enterCoatingLineTwo(),coatOneTwo(),toOvenSixFromTwo(), coatOnePlus(), toOvenSixFromOne(),17,17,17, coatOnePlus(), toOvenSixFromOne("end"), box[9].endPause);
 
 function enterCoatingLineOne() {
 	var enterLine = [0,1,4,7,10,13];
@@ -230,17 +230,10 @@ function coatOneTwo() {											// coat one in coating station two
 	}
 	return firstCoat;
 }
-function coatTwoOnePlus() {									// coat two in coating station one
+function coatOnePlus() {									// after coat one in coating station one
 	var coating = [];
 	for (i = 0; i < coatCount; i++) {
 		coating.push(31);
-	}
-	return coating;
-}
-function coatTwoTwoPlus() {									// coat two in coating station two
-	var coating = [];
-	for (i = 0; i < coatCount; i++) {
-		coating.push(32);
 	}
 	return coating;
 }
@@ -277,7 +270,7 @@ function toOvenTwoFromOne(end) {
 function toOvenThreeFromOne(end) {
 	var goToOvenThree = [];
 	var ovenThreeReturn = [];
-	goToOvenThree = [14,18];
+	goToOvenThree = [13,10,7,8];
 	for (i = 0; i < cureCount; i++) {
 		goToOvenThree.push(9);
 	}
@@ -292,9 +285,9 @@ function toOvenThreeFromOne(end) {
 function toOvenFourFromOne(end) {
 	var goToOvenFour = [];
 	var ovenFourReturn = [];
-	goToOvenFour = [14,18,22];
+	goToOvenFour = [13,10,11];
 	for (i = 0; i < cureCount; i++) {
-		goToOvenFour.push(23);
+		goToOvenFour.push(12);
 	}
 	if (end === "end") {
 		ovenFourReturn = [11,10,13,16,19,22,25,28,33];
@@ -307,9 +300,9 @@ function toOvenFourFromOne(end) {
 function toOvenFiveFromOne(end) {
 	var goToOvenFive = [];
 	var ovenFiveReturn = [];
-	goToOvenFive = [14,18,22,26];
+	goToOvenFive = [13,14];
 	for (i = 0; i < cureCount; i++) {
-		goToOvenFive.push(27);
+		goToOvenFive.push(15);
 	}
 	if (end === "end") {
 		ovenFiveReturn = [14,13,16,19,22,25,28,33];
@@ -324,7 +317,7 @@ function toOvenSixFromOne(end) {
 	var ovenSixReturn = [];
 	goToOvenSix = [13,16,17];
 	for (i = 0; i < cureCount; i++) {
-		goToOvenSix.push(31);
+		goToOvenSix.push(18);
 	}
 	if (end === "end") {
 		ovenSixReturn = [17,16,19,22,25,28,33];
@@ -339,69 +332,113 @@ function toOvenSixFromTwo() {
 	var ovenSixReturn = [];
 	goToOvenSix = [19,16,17];
 	for (i = 0; i < cureCount; i++) {
-		goToOvenSix.push(31);
+		goToOvenSix.push(18);
 	}
 	ovenSixReturn = [17,16,13];
 	goToOvenSix = goToOvenSix.concat(ovenSixReturn);
 	return goToOvenSix;
 }
-function toOvenSeven(end) {
+function toOvenSevenFromOne(end) {
 	var goToOvenSeven = [];
 	var ovenSevenReturn = [];
-	goToOvenSeven = [14,18,22,26,30,34];
+	goToOvenSeven = [13,16,19,20];
 	for (i = 0; i < cureCount; i++) {
-		goToOvenSeven.push(35);
+		goToOvenSeven.push(21);
 	}
 	if (end === "end") {
-		ovenSevenReturn = [36,37,41,45,49,5];
+		ovenSevenReturn = [20,19,22,25,28,33];
 	} else {
-		ovenSevenReturn = [36,37,33,29,25,21,17,13,9,8,7,6,10,14];
+		ovenSevenReturn = [20,19,16,13];
 	}
 	goToOvenSeven = goToOvenSeven.concat(ovenSevenReturn);
 	return goToOvenSeven;
 }
-function toOvenEight(end) {
+function toOvenSevenFromTwo() {
+	var goToOvenSeven = [];
+	var ovenSevenReturn = [];
+	goToOvenSeven = [19,20];
+	for (i = 0; i < cureCount; i++) {
+		goToOvenSeven.push(21);
+	}
+	ovenSevenReturn = [20,19,16,13];
+	goToOvenSeven = goToOvenSeven.concat(ovenSevenReturn);
+	return goToOvenSeven;
+}
+function toOvenEightFromOne(end) {
 	var goToOvenEight = [];
 	var ovenEightReturn = [];
-	goToOvenEight = [14,18,22,26,30,34,38];
+	goToOvenEight = [13,16,19,22,23];
 	for (i = 0; i < cureCount; i++) {
-		goToOvenEight.push(39);
+		goToOvenEight.push(24);
 	}
 	if (end === "end") {
-		ovenEightReturn = [40,41,45,49,5];
+		ovenEightReturn = [20,19,22,25,28,33];
 	} else {
-		ovenEightReturn = [40,41,37,33,29,25,21,17,13,9,8,7,6,10,14];
+		ovenEightReturn = [20,19,16,13];
 	}
 	goToOvenEight = goToOvenEight.concat(ovenEightReturn);
 	return goToOvenEight;
 }
-function toOvenNine(end) {
+function toOvenEightFromTwo() {
+	var goToOvenEight = [];
+	var ovenEightReturn = [];
+	goToOvenEight = [19,22,23];
+	for (i = 0; i < cureCount; i++) {
+		goToOvenEight.push(24);
+	}
+	ovenEightReturn = [23,22,19,16,13];
+	goToOvenEight = goToOvenEight.concat(ovenEightReturn);
+	return goToOvenEight;
+}
+function toOvenNineFromOne(end) {
 	var goToOvenNine = [];
 	var ovenNineReturn = [];
-	goToOvenNine = [14,18,22,26,30,34,38,42];
+	goToOvenNine = [13,16,19,22,25,26];
 	for (i = 0; i < cureCount; i++) {
-		goToOvenNine.push(43);
+		goToOvenNine.push(27);
 	}
 	if (end === "end") {
-		ovenNineReturn = [44,45,49,5];
+		ovenNineReturn = [26,25,28,33];
 	} else {
-		ovenNineReturn = [44,45,41,37,33,29,25,21,17,13,9,8,7,6,10,14];
+		ovenNineReturn = [26,25,22,19,16,13];
 	}
 	goToOvenNine = goToOvenNine.concat(ovenNineReturn);
 	return goToOvenNine;
 }
-function toOvenTen(end) {
+function toOvenNineFromTwo() {
+	var goToOvenNine = [];
+	var ovenNineReturn = [];
+	goToOvenNine = [19,22,25,26];
+	for (i = 0; i < cureCount; i++) {
+		goToOvenNine.push(27);
+	}
+	ovenNineReturn = [26,25,22,19,16,13];
+	goToOvenNine = goToOvenNine.concat(ovenNineReturn);
+	return goToOvenNine;
+}
+function toOvenTenFromOne(end) {
 	var goToOvenTen = [];
 	var ovenTenReturn = [];
-	goToOvenTen = [14,18,22,26,30,34,38,42,46];
+	goToOvenTen = [13,16,19,22,25,28,29];
 	for (i = 0; i < cureCount; i++) {
-		goToOvenTen.push(47);
+		goToOvenTen.push(30);
 	}
 	if (end === "end") {
-		ovenTenReturn = [48,49,5];
+		ovenTenReturn = [29,28,33];
 	} else {
-		ovenTenReturn = [48,49,45,41,37,33,29,25,21,17,13,9,8,7,6,10,14];
+		ovenTenReturn = [29,28,25,22,19,16,13];
 	}
+	goToOvenTen = goToOvenTen.concat(ovenTenReturn);
+	return goToOvenTen;
+}
+function toOvenTenFromTwo() {
+	var goToOvenTen = [];
+	var ovenTenReturn = [];
+	goToOvenTen = [19,22,25,28,29];
+	for (i = 0; i < cureCount; i++) {
+		goToOvenTen.push(30);
+	}
+	ovenTenReturn = [29,28,25,22,19,16,13];
 	goToOvenTen = goToOvenTen.concat(ovenTenReturn);
 	return goToOvenTen;
 }
