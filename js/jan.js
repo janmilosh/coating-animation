@@ -40,15 +40,13 @@ ovenFrame.SVGWidth = ovenFrame.totalWidth + ovenFrame.xShift * 2;
 ovenFrame.SVGHeight = ovenFrame.totalHeight + ovenFrame.yShift * 2;
 var positionIndex = [];
 for (i = 0; i <= ovenFrame.numberOfOvens; i++) {
-	for (j = 0; j < 4; j++)
-		positionIndex[4*i + 6 +j] = [(ovenFrame.xShift + ovenFrame.totalWidth - ovenFrame.ovenWidth * i),(ovenFrame.yShift +ovenFrame.totalHeight - (j + 1) * ovenFrame.ovenHeight)];
+	for (j = 0; j < 3; j++)
+		positionIndex[3*i + 1 +j] = [(ovenFrame.xShift + ovenFrame.totalWidth - ovenFrame.ovenWidth * (i + 1)),(ovenFrame.yShift +ovenFrame.totalHeight - (j + 1) * ovenFrame.ovenHeight)];
 }
-positionIndex[0] = [(ovenFrame.xShift + ovenFrame.totalWidth),(ovenFrame.yShift + ovenFrame.totalHeight)];
-positionIndex[1] = [(ovenFrame.xShift + ovenFrame.totalWidth - 2 * ovenFrame.ovenWidth),(ovenFrame.yShift + ovenFrame.totalHeight)];
-positionIndex[2] = [(ovenFrame.xShift + ovenFrame.totalWidth - 4 * ovenFrame.ovenWidth),(ovenFrame.yShift + ovenFrame.totalHeight)];
-positionIndex[3] = [(ovenFrame.xShift + ovenFrame.totalWidth - 6 * ovenFrame.ovenWidth),(ovenFrame.yShift + ovenFrame.totalHeight)];
-positionIndex[4] = [(ovenFrame.xShift + ovenFrame.totalWidth - 8 * ovenFrame.ovenWidth),(ovenFrame.yShift + ovenFrame.totalHeight)];
-positionIndex[5] = [ovenFrame.xShift,ovenFrame.yShift];
+positionIndex[0] = [(ovenFrame.xShift + ovenFrame.totalWidth),(ovenFrame.yShift + 2 * ovenFrame.ovenHeight)];
+positionIndex[31] = [(ovenFrame.xShift +  6 * ovenFrame.ovenWidth),(ovenFrame.yShift + ovenFrame.totalHeight)];
+positionIndex[32] = [(ovenFrame.xShift + 4 * ovenFrame.ovenWidth),(ovenFrame.yShift + ovenFrame.totalHeight)];
+positionIndex[33] = [(ovenFrame.xShift),(ovenFrame.yShift + 2 * ovenFrame.ovenHeight)];
 //
 //---------------------------------------------------
 //           Create svg inside of container
