@@ -41,8 +41,9 @@ ovenFrame.SVGWidth = ovenFrame.totalWidth + ovenFrame.xShift * 2;
 ovenFrame.SVGHeight = ovenFrame.totalHeight + ovenFrame.yShift * 2;
 var positionIndex = [];
 for (i = 0; i <= ovenFrame.numberOfOvens; i++) {
-	for (j = 0; j < 3; j++)
+	for (j = 0; j < 3; j++) {
 		positionIndex[3*i + 1 +j] = [(ovenFrame.xShift + ovenFrame.totalWidth - ovenFrame.ovenWidth * (i + 1)),(ovenFrame.yShift +ovenFrame.totalHeight - (j + 1) * ovenFrame.ovenHeight)];
+	}
 }
 positionIndex[0] = [(ovenFrame.xShift + ovenFrame.totalWidth),(ovenFrame.yShift + 2 * ovenFrame.ovenHeight)];
 positionIndex[31] = [(ovenFrame.xShift +  6 * ovenFrame.ovenWidth),(ovenFrame.yShift + ovenFrame.totalHeight)];
