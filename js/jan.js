@@ -22,7 +22,7 @@ var conveyorSpeed = 1.4;
 var firstCoatTime = 12;
 var coatTime = 4;
 var cureTime = 60;
-var cycleTime = .2 * 1000;
+var cycleTime = .2 * 600;
 var loadPauseCycles = 18;						// The arrays take a few seconds to load, this keeps the first box from
 ovenFrame.lineColor = "#555";																				// suddenly jumping to the paint station
 ovenFrame.circleColor = "#808080";
@@ -150,22 +150,22 @@ for (i = 0; i < numberOfBoxes; i++) {						//create array of boxes
 //
 var timer = animationSVG.append("svg:text")	
 	.text("Time:")
-	.attr("x",ovenFrame.xShift + ovenFrame.totalWidth - 320)
-	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight)
+	.attr("x",ovenFrame.xShift + ovenFrame.totalWidth - 300)
+	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight + 0.5 * ovenFrame.ovenHeight)
 	.attr("font-size", "32px")
 	.attr("font-family", "Helvetica")
 	.attr("fill", ovenFrame.lineColor);
 var timerText = animationSVG.append("text")
 	.attr("class", "timer-text")
-	.attr("x", ovenFrame.xShift + ovenFrame.totalWidth - 220)
-	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight)
+	.attr("x", ovenFrame.xShift + ovenFrame.totalWidth - 200)
+	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.5 * ovenFrame.ovenHeight)
 	.attr("font-size", "32px")
   .attr("font-family", "Helvetica")
   .attr("fill", ovenFrame.lineColor);
 var timer = animationSVG.append("svg:text")	
 	.text("minutes")
-	.attr("x",ovenFrame.xShift + ovenFrame.totalWidth - 130)
-	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight)
+	.attr("x",ovenFrame.xShift + ovenFrame.totalWidth - 110)
+	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight + 0.5 * ovenFrame.ovenHeight)
 	.attr("font-size", "32px")
 	.attr("font-family", "Helvetica")
 	.attr("fill", ovenFrame.lineColor);
@@ -177,58 +177,58 @@ var ovenText = animationSVG.append("svg:text")
 	.attr("font-family", "Helvetica")
 	.attr("fill", ovenFrame.lineColor);
 var ovenText = animationSVG.append("svg:text")	
-	.text("Outfeed stacker")
+	.text("Outfeed")
 	.attr("x",ovenFrame.xShift - 50)
 	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight - 25)
 	.attr("font-size", "20px")
 	.attr("font-family", "Helvetica")
 	.attr("fill", ovenFrame.lineColor);
 var ovenText = animationSVG.append("svg:text")	
-	.text("Infeed de-stacker")
-	.attr("x",ovenFrame.xShift + ovenFrame.totalWidth - 100)
+	.text("Infeed queue")
+	.attr("x",ovenFrame.xShift + ovenFrame.totalWidth - 60)
 	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight - 25)
 	.attr("font-size", "20px")
 	.attr("font-family", "Helvetica")
 	.attr("fill", ovenFrame.lineColor);
 var ovenText = animationSVG.append("svg:text")	
-	.text("Coating-1")
-	.attr("x",ovenFrame.xShift +  6 * ovenFrame.ovenWidth - 42)
+	.text("Paint booth 1")
+	.attr("x",ovenFrame.xShift +  6 * ovenFrame.ovenWidth - 52)
 	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight + 60)
 	.attr("font-size", "20px")
 	.attr("font-family", "Helvetica")
 	.attr("fill", ovenFrame.lineColor);
 var ovenText = animationSVG.append("svg:text")	
-	.text("Coating-2")
-	.attr("x",ovenFrame.xShift + 4 * ovenFrame.ovenWidth - 42)
+	.text("Paint booth 2")
+	.attr("x",ovenFrame.xShift + 4 * ovenFrame.ovenWidth - 52)
 	.attr("y",ovenFrame.yShift + ovenFrame.totalHeight + 60)
 	.attr("font-size", "20px")
 	.attr("font-family", "Helvetica")
 	.attr("fill", ovenFrame.lineColor);
 	var ovenText = animationSVG.append("svg:text")	
-	.text("First coat:  " + firstCoatTime + " minutes")
-	.attr("x",ovenFrame.xShift)
-	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight)
+	.text("Mask & apply coat 1:  " + firstCoatTime + " minutes")
+	.attr("x",ovenFrame.xShift - 30)
+	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight - 5)
 	.attr("font-size", "18px")
 	.attr("font-family", "Helvetica")
 	.attr("fill", ovenFrame.lineColor);
 	var ovenText = animationSVG.append("svg:text")	
 	.text("Subsequent coats:  " + coatTime + " minutes")
-	.attr("x",ovenFrame.xShift)
-	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight + 20)
+	.attr("x",ovenFrame.xShift - 30)
+	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight + 15)
 	.attr("font-size", "18px")
 	.attr("font-family", "Helvetica")
 	.attr("fill", ovenFrame.lineColor);
 	var ovenText = animationSVG.append("svg:text")	
 	.text("Cure:  " + cureTime + " minutes")
-	.attr("x",ovenFrame.xShift)
-	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight + 40)
+	.attr("x",ovenFrame.xShift - 30)
+	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight + 35)
 	.attr("font-size", "18px")
 	.attr("font-family", "Helvetica")
 	.attr("fill", ovenFrame.lineColor);
 	var ovenText = animationSVG.append("svg:text")	
-	.text("Three coating cycles")
-	.attr("x",ovenFrame.xShift)
-	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight + 60)
+	.text("Three coat demo")
+	.attr("x",ovenFrame.xShift - 30)
+	.attr("y", ovenFrame.yShift + ovenFrame.totalHeight + 0.25 * ovenFrame.ovenHeight + 55)
 	.attr("font-size", "18px")
 	.attr("font-family", "Helvetica")
 	.attr("fill", ovenFrame.lineColor);
